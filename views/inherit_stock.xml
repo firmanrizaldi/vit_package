@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="stock.view_stock_move_operations">
+      <field name="name">stock.move.operations.form</field>
+            <field name="model">stock.move</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+               <form string="Move Detail">
+                    <field name="state" invisible="1"/>
+                    <field name="location_id" invisible="1"/>
+                    <field name="location_dest_id" invisible="1"/>
+                    <field name="picking_id" invisible="1"/>
+                    <field name="is_locked" invisible="1"/>
+                    <field name="picking_type_entire_packs" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="product_id" readonly="1"/>
+                            <label for="product_uom_qty"/>
+                            <div class="o_row">
+                                <span><field name="product_uom_qty" readonly="1" nolabel="1"/></span>
+                                <span><field name="product_uom" readonly="1" nolabel="1"/></span>
+                            </div>
+                            <label for="quantity_done"/>
+                            <div class="o_row">
+                                <span><field name="quantity_done" readonly="1" nolabel="1"/></span>
+                                <span attrs="{'invisible': [('state', '=', 'done')]}"> / </span>
+                                <span><field name="reserved_availability" nolabel="1" attrs="{'invisible': [('state', '=', 'done')]}" /></span>
+                                <span><field name="product_uom" readonly="1" nolabel="1"/></span>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="customer_id" widget="selection"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                             <h3>Label Kecil</h3>
+                             <field name="qty_kecil"/>
+                             <field name="qty_kecil_dus"/>
+                             <h3>Non Std Qty</h3>
+                             <field name="qty_non_std"/>
+
+                        </group>
+                        <group>
+                             <h3>Label Besar</h3>
+                             <field name="qty_besar"/>
+                             <field name="qty_besar_dus"/>
+                             <button string="Create Package" type="object" name="action_create_package"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                      <page string="Label Kecil">
+                          <field name="move_line_ids" attrs="{'readonly': ['|', ('state', '=', 'cancel'), '&amp;', ('state', '=', 'done'), ('is_locked', '=', True)]}" context="{'tree_view_ref': 'stock.view_stock_move_line_operation_tree', 'default_product_uom_id': product_uom, 'default_picking_id': picking_id, 'default_move_id': id, 'default_product_id': product_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}"/>
+                      </page>
+                      </notebook>
+
+                    <footer class="oe_edit_only">
+                        <button string="Confirm" special="save" class="oe_highlight"/>
+                        <button string="Discard" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+    </record>
+  </data>
+</odoo>
