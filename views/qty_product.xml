@@ -1,0 +1,39 @@
+<odoo>
+	<data>
+
+        <record id="views_quantity_production_tree" model="ir.ui.view">
+            <field name="name">qty.product.tree</field>
+            <field name="model">qty.product</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+               <tree string="Quantity Production">
+						<field name="partner_id"/>
+						<field name="product_id"/>
+						<field name="qty_kecil"/>
+						<field name="qty_besar"/>
+					</tree>
+            </field> 
+        </record>
+
+
+			<record id="action_qty_product" model="ir.actions.act_window">
+				<field name="name">Quantity Product</field>
+				<field name="res_model">qty.product</field>
+				<field name="view_mode">tree,form</field>
+				<field name="help" type="html">
+				  <p class="oe_view_nocontent_create">
+					Click to add a Quantity product
+				  </p>
+					<p>klik tombol create untuk membuat Quantity product baru</p>
+				</field>
+			</record>
+
+			<menuitem id="menu_qty_product" 
+					  name="Quantity production"
+					  parent="stock.menu_stock_inventory_control" 
+					  action="action_qty_product"
+					  groups="stock.group_tracking_lot"
+					  sequence="103"/>
+	</data>
+</odoo>

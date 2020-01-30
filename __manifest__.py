@@ -20,12 +20,15 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','stock','vit_mrp_cost'],
+    'depends': ['base','stock','vit_mrp_cost','sale'],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/inherit_stock.xml',
+        'views/qty_product.xml',
+        'views/package.xml',
+        # 'data/ir_sequence_lot.xml',
         
     ],
   

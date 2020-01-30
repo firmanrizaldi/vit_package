@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-acces,,model_,,1,0,0,0
+acces_qty_product,acces_qty_product,model_qty_product,,1,1,1,1

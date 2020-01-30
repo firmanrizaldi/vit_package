@@ -13,6 +13,7 @@
                     <field name="picking_id" invisible="1"/>
                     <field name="is_locked" invisible="1"/>
                     <field name="picking_type_entire_packs" invisible="1"/>
+                    <field name="production_id" invisible="0"/>
                     <group>
                         <group>
                             <field name="product_id" readonly="1"/>
@@ -29,8 +30,8 @@
                                 <span><field name="product_uom" readonly="1" nolabel="1"/></span>
                             </div>
                         </group>
-                        <group>
-                            <field name="customer_id" widget="selection"/>
+                        <group attrs="{'invisible': [('state', '!=', 'assigned')]}">
+                            <field name="customer_id" options="{'no_create_edit':False, 'no_create':False}"/>
                         </group>
                     </group>
                     <group>
@@ -46,14 +47,27 @@
                              <h3>Label Besar</h3>
                              <field name="qty_besar"/>
                              <field name="qty_besar_dus"/>
-                             <button string="Create Package" type="object" name="action_create_package"/>
+                             <button string="Create Package" class="btn btn-danger" type="object" name="action_create_package"/>
                         </group>
 
                     </group>
                     <notebook>
-                      <page string="Label Kecil">
+                      <group string="Label Kecil">
+                      <page >
                           <field name="move_line_ids" attrs="{'readonly': ['|', ('state', '=', 'cancel'), '&amp;', ('state', '=', 'done'), ('is_locked', '=', True)]}" context="{'tree_view_ref': 'stock.view_stock_move_line_operation_tree', 'default_product_uom_id': product_uom, 'default_picking_id': picking_id, 'default_move_id': id, 'default_product_id': product_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}"/>
                       </page>
+                    </group>
+                    <group string="Label Besar">
+                        <page >
+                          <field name="label_besar_ids" >
+                            <tree editable="bottom">
+
+                              <field name="name"/>
+                              <field name ='package_ids' widget="many2many_tags"/>
+                            </tree>
+                        </field>
+                      </page>
+                    </group>
                       </notebook>
 
                     <footer class="oe_edit_only">
